@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { TabsPage } from '../tabs/tabs';
 import { RegistroPage } from '../registro/registro';
 
 
  
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -22,12 +21,13 @@ export class LoginPage {
     this.nav.push(RegistroPage);
   }
  
-  public login() {
+  /*public login() {
     this.aux = true;
     
     this.showLoading()
     this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {        
+      console.log(allowed);
+      if (allowed.h) {        
         this.nav.setRoot(TabsPage);
       } else {
         this.showError("Acceso Denegado");
@@ -36,8 +36,25 @@ export class LoginPage {
       error => {
         this.showError(error);
       });
+      
+
+  }*/
+  public login2() {
+    this.aux = true
+    this.showLoading();
+    this.auth.signInWithEmail(this.registerCredentials)
+      .then(
+        () => this.nav.setRoot(TabsPage),
+        error => this.showError(error.message)//console.log(error.message)
+      );
   }
- 
+  loginWithGoogle() {
+    this.auth.signInWithGoogle()
+      .then(
+        () => this.nav.setRoot(TabsPage),
+        error => console.log(error.message)
+      );
+  }
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Espere Porfavor...',
