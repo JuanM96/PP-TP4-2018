@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { LoginPage } from '../login/login';
 import { App } from 'ionic-angular';
+import { CosasLindasPage } from '../cosas-lindas/cosas-lindas';
+import { CosasFeasPage } from '../cosas-feas/cosas-feas';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -16,5 +18,11 @@ export class HomePage {
     this.auth.logout().subscribe(succ => {
       this.app.getRootNav().setRoot(LoginPage);
     });
+  }
+  public cosasLindas(){
+    this.navCtrl.push(CosasLindasPage);
+  }
+  public cosasFeas(){
+    this.navCtrl.push(CosasFeasPage);
   }
 }
