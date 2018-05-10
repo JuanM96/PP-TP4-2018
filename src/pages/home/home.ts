@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,NavParams } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { LoginPage } from '../login/login';
 import { App } from 'ionic-angular';
@@ -10,9 +10,9 @@ import { CosasFeasPage } from '../cosas-feas/cosas-feas';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  constructor(public navCtrl: NavController,public app:App,private auth: AuthService) {
-
+  usuario:string
+  constructor(public navCtrl: NavController,public navParams:NavParams,public app:App,private auth: AuthService) {
+    this.usuario = this.armarUsuario();
   }
   public logout() {
     this.auth.logout().subscribe(succ => {
@@ -20,9 +20,22 @@ export class HomePage {
     });
   }
   public cosasLindas(){
-    this.navCtrl.push(CosasLindasPage);
+    this.navCtrl.push(CosasLindasPage,{data:this.usuario});
   }
   public cosasFeas(){
-    this.navCtrl.push(CosasFeasPage);
+    this.navCtrl.push(CosasFeasPage,{data:this.usuario});
+  }
+  public armarUsuario(){
+    let usuario = this.navParams.get('data');
+    let usuarioCortado = "";
+    for (let i = 0; i < usuario.length; i++) {
+      if (usuario[i] == "@") {
+        break;
+      }
+      else{
+        usuarioCortado = usuarioCortado + usuario[i];
+      }
+    }
+    return usuarioCortado;
   }
 }

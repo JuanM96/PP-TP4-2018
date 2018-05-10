@@ -16,7 +16,8 @@ export class LoginPage {
   registerCredentials = { email: '', password: '' };
   aux:boolean = false;
  
-  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+   }
  
   public createAccount() {
     this.nav.push(RegistroPage);
@@ -45,7 +46,7 @@ export class LoginPage {
     this.showLoading();
     this.auth.signInWithEmail(this.registerCredentials)
       .then(
-        () => this.nav.setRoot(HomePage),
+        () => this.nav.setRoot(HomePage,{data:this.registerCredentials.email}),
         error => this.showError(error.message)//console.log(error.message)
       );
   }

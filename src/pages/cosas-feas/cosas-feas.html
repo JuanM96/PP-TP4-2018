@@ -13,16 +13,24 @@
 </ion-header>
 
 
+
+
 <ion-content padding class="home">
-  <img src="assets/icon.png" alt="" width="90px">
-  <img src="assets/icon.png" alt="" width="90px">
-  <img src="assets/icon.png" alt="" width="90px">
   
-</ion-content>
-<ion-footer no-shadow no-border >
-    <ion-toolbar position="bottom" color="MiColor">
-        <button ion-button full icon-only class="submit-btn">
-          <ion-icon name="camera"></ion-icon>
-        </button>
-    </ion-toolbar>
-</ion-footer>
+    <ion-row *ngFor="let usu of usuariosUrls">
+      <h2>{{usu.usuario}}:</h2>
+      <ion-col *ngFor="let image of usu.imageUrls">
+          <img [src]="image" width="90px"/>
+        </ion-col>
+    </ion-row>
+    </ion-content>
+    <ion-footer no-shadow no-border >
+        <ion-toolbar position="bottom" color="MiColor">
+            <button ion-button full icon-only class="submit-btn" (click)="takePicture()">
+              <ion-icon name="camera"></ion-icon>
+            </button>
+            <button ion-button full icon-only class="submit-btn" (click)="downloadImageUrls()">
+              <ion-icon name="refresh"></ion-icon>
+            </button>
+        </ion-toolbar>
+    </ion-footer>
